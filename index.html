@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kerolos & Rana | Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #121212;
+            --section-spacing: 80px;
+        }
+
+        /* الأساسيات */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+            background-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ❤️ تأثير القلوب المتطايرة */
+        .heart-particle {
+            position: fixed;
+            bottom: -50px;
+            color: var(--gold);
+            font-size: 1.2rem;
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+            animation: floatUp 5s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 🎬 شاشة التحميل (Preloader) */
+        .intro { 
+            position: fixed; 
+            inset: 0; 
+            background: var(--dark); 
+            z-index: 10000; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            transition: opacity 1s ease;
+        }
+        .animate-text { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 2.5rem; 
+            color: var(--gold); 
+        }
+        .loader-line {
+            width: 120px;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.2);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .loader-line::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* زر الموسيقى */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: var(--gold);
+            font-size: 1.2rem;
+            border: 1px solid var(--gold);
+        }
+
+        /* 💒 واجهة البداية (Hero) */
+        .hero { 
+            height: 100vh; 
+            width: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80') center/cover no-repeat;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white;
+            position: relative;
+        }
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 12vw, 6rem);
+            background: linear-gradient(to right, #ffffff 20%, var(--gold) 40%, var(--gold) 60%, #ffffff 80%);
+            background-size: 200% auto;
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        .hero-sub { letter-spacing: 4px; font-weight: 300; font-size: 0.8rem; margin-bottom: 10px; }
+        .date-hero { font-size: 1.1rem; letter-spacing: 2px; border-top: 1px solid rgba(212,175,55,0.5); border-bottom: 1px solid rgba(212,175,55,0.5); padding: 8px 15px; display: inline-block; margin-top: 15px; }
+
+        /* 🔽 سهم السكرول - الموضع المطلوب 150px */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 150px; 
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+        .arrow {
+            width: 15px;
+            height: 15px;
+            border-right: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            transform: rotate(45deg);
+            animation: scrollMove 2s infinite;
+        }
+        @keyframes scrollMove {
+            0% { transform: rotate(45deg) translate(0, 0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(45deg) translate(8px, 8px); opacity: 0; }
+        }
+
+        /* 🖋️ الأقسام والتنسيقات */
+        .section { padding: var(--section-spacing) 20px; text-align: center; }
+        .wedding-quote { font-size: 1.2rem; color: #555; line-height: 2; max-width: 500px; margin: 0 auto; font-family: 'Playfair Display', serif; }
+        
+        .luxury-card { 
+            background: #fff; 
+            padding: 50px 25px; 
+            border-radius: 25px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
+            width: 100%; 
+            max-width: 550px; 
+            margin: 0 auto; 
+            position: relative; 
+            border: 1px solid #f9f9f9;
+        }
+        
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin-bottom: 30px; }
+
+        /* ⏳ العد التنازلي */
+        .countdown-display { display: flex; justify-content: center; gap: 8px; direction: ltr; margin: 25px 0; }
+        .time-block { background: #fdfdfd; padding: 12px 0; border-radius: 12px; min-width: 70px; border: 1px solid #eee; }
+        .time-block .number { font-size: 1.6rem; font-weight: 600; color: var(--dark); display: block; }
+        .time-block .label { font-size: 0.65rem; color: var(--gold); }
+
+        /* 📸 Slider المعرض */
+        .slider-wrapper { position: relative; max-width: 450px; margin: 0 auto; }
+        .swipe-hint { font-size: 0.75rem; color: #999; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slider .photo-item {
+            min-width: 100%;
+            height: 400px;
+        }
+        .slider .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            color: var(--dark);
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slider-btn.prev { right: 10px; }
+        .slider-btn.next { left: 10px; }
+
+        /* 🕒 الجدول الزمني */
+        .timeline { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .timeline-item { background: #fff; padding: 25px; border-radius: 18px; width: 100%; max-width: 400px; border: 1px solid #f0f0f0; }
+        .time { color: var(--gold); font-weight: 600; display: block; margin-bottom: 5px; }
+        .event { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; }
+        .place { color: #888; font-size: 0.9rem; }
+
+        /* 🖋️ قسم التهاني (Guestbook) */
+        #wishForm { display: flex; flex-direction: column; gap: 15px; }
+        #wishForm input, #wishForm textarea {
+            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #eee;
+            background: #fafafa; font-family: inherit; outline: none; transition: 0.3s;
+            text-align: right;
+        }
+        #wishForm input:focus, #wishForm textarea:focus { border-color: var(--gold); background: #fff; }
+        .submit-btn {
+            background: var(--gold); color: white; border: none; padding: 15px;
+            border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .submit-btn:disabled { opacity: 0.6; }
+        
+        #wishesDisplay { margin-top: 30px; text-align: right; max-height: 400px; overflow-y: auto; padding-left: 10px; }
+        .wish-item { background: #fdfdfd; padding: 15px; border-right: 4px solid var(--gold); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); animation: slideIn 0.5s ease forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .wish-item strong { display: block; color: var(--dark); font-size: 0.95rem; margin-bottom: 5px; }
+        .wish-item p { color: #666; font-size: 0.85rem; }
+
+        /* 📍 الخريطة */
+        .map-container { border-radius: 20px; overflow: hidden; margin: 20px 0; height: 250px; }
+        .btn-royal { background: var(--gold); color: #fff; padding: 16px 35px; border-radius: 50px; text-decoration: none; display: inline-block; font-size: 0.95rem; font-weight: 600; }
+
+        /* 🖋️ التذييل (Footer) المعدل */
+        .final-footer { 
+            padding: 80px 20px 40px; 
+            background-color: var(--dark); 
+            text-align: center; 
+            border-top: 2px solid var(--gold);
+        }
+        .footer-names { 
+            font-family: 'Great Vibes', cursive; font-size: 3rem; 
+            background: linear-gradient(to right, #ffffff 20%, var(--gold) 40%, var(--gold) 60%, #ffffff 80%);
+            background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+        .footer-date {
+            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        .designer-tag {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .designer-tag span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .heart { 
+            color: var(--gold); 
+            font-size: 2.5rem; 
+            margin-top: 15px; 
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            will-change: transform, opacity;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div class="intro" id="intro">
+        <h1 class="animate-text">Kerolos & Rana</h1>
+        <div class="loader-line"></div>
+    </div>
+
+    <!-- زر تحكم الموسيقى -->
+    <div class="music-control" id="musicBtn">♪</div>
+    
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <section class="hero">
+        <div class="hero-content reveal">
+            <h2 class="hero-sub">THE WEDDING OF</h2>
+            <h1 class="names">Kerolos & Rana</h1>
+            <p class="date-hero">25 . 05 . 2026</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>اسحب لأسفل</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="reveal">
+            <p class="wedding-quote">
+                "لأنكم جزء من حكايتنا، ولأن أجمل اللحظات هي التي نتشاركها معكم....<br>
+                بكم تزدادُ مسراتنا، وتكتملُ ليلةُ العمرِ بجميلِ حضوركم."
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="reveal">
+            <h2 class="section-title">معرض الصور</h2> 
+            <div class="slider-wrapper">
+                <span class="swipe-hint">← اسحب لمشاهدة المزيد →</span>
+                <div class="slider-container">
+                    <div class="slider" id="slider">
+                        <!-- استبدل الأسماء بالصور الفعلية لديك -->
+                        <div class="photo-item"><img src="00.jpeg" alt="1"></div>
+                        <div class="photo-item"><img src="11.jpeg" alt="2"></div>
+                        <div class="photo-item"><img src="20.jpeg" alt="3"></div>
+                        <div class="photo-item"><img src="55.jpeg" alt="4"></div>
+                        <div class="photo-item"><img src="15.jpeg" alt="6"></div>
+                        <div class="photo-item"><img src="66.jpeg" alt="5"></div>
+                        <div class="photo-item"><img src="99.jpeg" alt="6"></div>
+                    </div>
+                    <button class="slider-btn prev" onclick="manualMove(1)">&#10094;</button>
+                    <button class="slider-btn next" onclick="manualMove(-1)">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="luxury-card reveal">
+            <h2 class="section-title">Save The Date</h2>
+            <div id="countdown" class="countdown-display"></div>
+            <p style="font-weight: 600; margin-top: 10px;">📅 الاثنين 25 مايو 2026</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="reveal">
+            <h2 class="section-title">Wedding Schedule</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="time">06:00 PM</span>
+                    <div class="event">صلاة الإكليل المقدس</div>
+                    <div class="place">بكنيسة الملاك والبابا كيرلس بملوي</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="time">08:00 PM</span>
+                    <div class="event">حفل الزفاف</div>
+                    <div class="place">بقاعة الملكة (Queen) - ملوي</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="luxury-card reveal">
+            <h2 class="section-title">Location</h2>
+            <p style="margin-bottom: 15px;">قاعة الملكة - ملوي</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3485.441221768407!2d30.8443!3d27.7289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDQzJzQ0LjAiTiAzMMKwNTAnMzkuNSJF!5e0!3m2!1sen!2seg!4v1714680000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <a href="https://maps.app.goo.gl/3f9rU3L9Y3eM2r9K8" class="btn-royal">فتح الموقع في الخرائط</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="luxury-card reveal">
+            <h2 class="section-title">Best Wishes</h2>
+            <form id="wishForm">
+                <input type="text" name="data[name]" id="guestName" placeholder="اسمك" required>
+                <textarea name="data[message]" id="guestMessage" placeholder="اكتب كلمة حلوة للعروسين..." rows="3" required></textarea>
+                <button type="submit" id="submitBtn" class="submit-btn">Share Your Wishes</button>
+            </form>
+            
+            <div id="wishesDisplay">
+                <p style="color: #999; font-size: 0.8rem;">جاري تحميل التهاني...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="final-footer reveal">
+        <h2 class="footer-names">Kerolos & Rana</h2>
+        <p class="footer-date">25 . 05 . 2026</p>
+        <div class="heart">&hearts;</div>
+        <div class="designer-tag">Designed by <span>Wassem Boshra</span></div>
+    </footer>
+
+    <script>
+        const GUEST_API = "https://sheetdb.io/api/v1/wcc4w9pg01ze1";
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+
+        function initMusic() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicBtn.innerText = '||';
+                    document.removeEventListener('click', initMusic);
+                    document.removeEventListener('touchstart', initMusic);
+                }).catch(error => console.log("المتصفح يمنع التشغيل التلقائي"));
+            }
+        }
+
+        document.addEventListener('click', initMusic);
+        document.addEventListener('touchstart', initMusic);
+
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (audio.paused) {
+                audio.play();
+                musicBtn.innerText = '||';
+            } else {
+                audio.pause();
+                musicBtn.innerText = '♪';
+            }
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+        setInterval(createHeart, 400);
+
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('intro');
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                setTimeout(() => { intro.style.display = 'none'; handleReveal(); }, 1000);
+            }, 1500);
+            loadWishes(); 
+        });
+
+        const targetDate = new Date("May 25, 2026 18:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('countdown').innerHTML = `
+                <div class="time-block"><span class="number">${d}</span><span class="label">يوم</span></div>
+                <div class="time-block"><span class="number">${h}</span><span class="label">ساعة</span></div>
+                <div class="time-block"><span class="number">${m}</span><span class="label">دقيقة</span></div>
+                <div class="time-block"><span class="number">${s}</span><span class="label">ثانية</span></div>
+            `;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        let currentSlide = 0;
+        let autoPlayInterval;
+        const slider = document.getElementById('slider');
+        const totalSlides = slider.children.length;
+
+        function moveSlider(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            slider.style.transform = `translateX(${currentSlide * 100}%)`;
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => { moveSlider(-1); }, 2000); 
+        }
+
+        function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+        function manualMove(direction) {
+            stopAutoPlay();
+            moveSlider(direction);
+        }
+
+        startAutoPlay();
+
+        let touchStartX = 0;
+        slider.addEventListener('touchstart', e => { stopAutoPlay(); touchStartX = e.changedTouches[0].screenX; });
+        slider.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) moveSlider(-1);
+            if (touchStartX - touchEndX < -50) moveSlider(1);
+        });
+
+        async function loadWishes() {
+            const display = document.getElementById('wishesDisplay');
+            try {
+                const response = await fetch(GUEST_API);
+                const data = await response.json();
+                display.innerHTML = ''; 
+                data.reverse().slice(0, 15).forEach(wish => {
+                    display.insertAdjacentHTML('beforeend', `
+                        <div class="wish-item">
+                            <strong>${wish.name}</strong>
+                            <p>${wish.message}</p>
+                        </div>`);
+                });
+            } catch (e) { display.innerHTML = '<p>شكراً لمشاعركم الجميلة.</p>'; }
+        }
+
+        document.getElementById('wishForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "جاري الإرسال...";
+            btn.disabled = true;
+
+            try {
+                await fetch(GUEST_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        data: [{
+                            name: document.getElementById('guestName').value,
+                            message: document.getElementById('guestMessage').value
+                        }]
+                    })
+                });
+                document.getElementById('wishForm').reset();
+                btn.innerText = "تم الإرسال بنجاح ✓";
+                loadWishes();
+            } catch (e) {
+                btn.innerText = "حدث خطأ، حاول ثانية";
+            } finally {
+                setTimeout(() => { btn.innerText = "إرسال تهنئة أخرى"; btn.disabled = false; }, 2500);
+            }
+        });
+
+        function handleReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < window.innerHeight - 50) el.classList.add('active');
+            });
+        }
+        window.addEventListener('scroll', handleReveal);
+    </script>
+</body>
+</html>
